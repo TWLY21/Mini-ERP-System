@@ -1,0 +1,26 @@
+CREATE TABLE IF NOT EXISTS departments (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(100) NOT NULL UNIQUE,
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS users (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(120) NOT NULL,
+  email VARCHAR(160) NOT NULL UNIQUE,
+  password VARCHAR(255) NOT NULL,
+  role VARCHAR(20) NOT NULL CHECK (role IN ('admin', 'manager', 'employee')),
+  department_id INTEGER REFERENCES departments(id) ON DELETE SET NULL,
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS tasks (
+  id SERIAL PRIMARY KEY,
+  title VARCHAR(160) NOT NULL,
+  description TEXT,
+  assigned_to INTEGER REFERENCES users(id) ON DELETE SET NULL,
+  created_by INTEGER REFERENCES users(id) ON DELETE SET NULL,
+  status VARCHAR(20) NOT NULL DEFAULT 'pending'
+    CHECK (status IN ('pending', 'in_progress', 'completed')),
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
