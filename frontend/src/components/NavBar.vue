@@ -159,7 +159,7 @@ const accountTitle = computed(
       <div class="active-badge">
         <span class="active-dot" />
         <span class="active-label">Current area</span>
-        <strong>{{ activeSection }}</strong>
+        <strong class="active-value">{{ activeSection }}</strong>
       </div>
     </div>
 
@@ -311,14 +311,15 @@ const accountTitle = computed(
 }
 
 .active-badge {
-  display: inline-flex;
+  display: grid;
+  grid-template-columns: 7px 78px minmax(0, 1fr);
   align-items: center;
   gap: 0.45rem;
-  width: fit-content;
-  max-width: 100%;
+  width: 100%;
   padding: 0.5rem 0.68rem;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.06);
+  min-height: 42px;
 }
 
 .active-dot {
@@ -335,6 +336,13 @@ const accountTitle = computed(
   font-size: 0.68rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
+}
+
+.active-value {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .nav-shell {
