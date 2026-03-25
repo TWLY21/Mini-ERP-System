@@ -48,18 +48,26 @@ onMounted(loadDepartments);
 <template>
   <div class="page">
     <section class="card">
-      <h2 class="section-title">Department Management</h2>
+      <div class="section-head">
+        <div class="section-copy">
+          <h2 class="section-title">Department Management</h2>
+          <p class="section-caption">
+            Keep organizational units consistent and easy to browse across the system.
+          </p>
+        </div>
+      </div>
+
       <form class="form-grid" @submit.prevent="submit">
-        <label>
-          <span>Department name</span>
+        <label class="form-field">
+          <span class="field-label">Department name</span>
           <input v-model="form.name" class="input" required />
         </label>
 
-        <div class="form-actions">
+        <div class="form-actions equal-actions">
           <button class="button" type="submit">
             {{ editingId ? "Update Department" : "Create Department" }}
           </button>
-          <button class="button secondary" type="button" @click="resetForm">
+          <button class="button ghost" type="button" @click="resetForm">
             Clear
           </button>
         </div>
@@ -67,7 +75,15 @@ onMounted(loadDepartments);
     </section>
 
     <section class="card">
-      <h2 class="section-title">Departments</h2>
+      <div class="section-head">
+        <div class="section-copy">
+          <h2 class="section-title">Departments</h2>
+          <p class="section-caption">
+            Review the current structure and update team naming without losing alignment.
+          </p>
+        </div>
+      </div>
+
       <div class="table-wrapper">
         <table>
           <thead>
@@ -79,14 +95,16 @@ onMounted(loadDepartments);
           </thead>
           <tbody>
             <tr v-for="department in departments" :key="department.id">
-              <td>{{ department.name }}</td>
-              <td>{{ new Date(department.created_at).toLocaleString() }}</td>
-              <td>
+              <td data-label="Name">{{ department.name }}</td>
+              <td data-label="Created At">
+                {{ new Date(department.created_at).toLocaleString() }}
+              </td>
+              <td data-label="Actions">
                 <div class="row-actions">
-                  <button class="button secondary" @click="startEdit(department)">
+                  <button class="button secondary small" @click="startEdit(department)">
                     Edit
                   </button>
-                  <button class="button danger" @click="remove(department.id)">
+                  <button class="button danger small" @click="remove(department.id)">
                     Delete
                   </button>
                 </div>

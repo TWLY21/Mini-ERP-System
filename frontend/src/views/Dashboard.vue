@@ -44,26 +44,62 @@ onMounted(loadDashboard);
 <template>
   <div class="page">
     <section class="card">
-      <h2 class="section-title">Welcome back, {{ authStore.user?.name }}</h2>
-      <p class="muted">
-        You are signed in as <strong>{{ authStore.user?.role }}</strong>. This dashboard
-        is intentionally lightweight and ready for feature growth.
-      </p>
+      <div class="page-header">
+        <div class="page-title-block">
+          <h2 class="page-title">Welcome back, {{ authStore.user?.name }}</h2>
+          <p class="page-subtitle">
+            You are signed in as <strong>{{ authStore.user?.role }}</strong>. This dashboard
+            keeps the most important activity visible without adding clutter.
+          </p>
+        </div>
+        <span class="tag">{{ authStore.user?.role }}</span>
+      </div>
     </section>
 
     <section class="grid-cards">
-      <article v-for="stat in stats" :key="stat.label" class="card">
+      <article v-for="stat in stats" :key="stat.label" class="card stat-card">
         <div class="muted">{{ stat.label }}</div>
         <div class="stat-value">{{ loading ? "..." : stat.value }}</div>
       </article>
     </section>
 
-    <section class="card">
-      <h2 class="section-title">Next Steps</h2>
-      <p class="muted">
-        Add validation, pagination, reporting, audit logs, and richer dashboard charts once
-        the base workflow is stable.
-      </p>
+    <section class="info-grid">
+      <article class="card">
+        <div class="section-head">
+          <div class="section-copy">
+            <h2 class="section-title">Workspace Snapshot</h2>
+            <p class="section-caption">A quick summary of how the core modules are shaping up.</p>
+          </div>
+        </div>
+
+        <div class="metric-row">
+          <span class="muted">Visible users</span>
+          <strong>{{ loading ? "..." : users.length }}</strong>
+        </div>
+        <div class="metric-row">
+          <span class="muted">Active departments</span>
+          <strong>{{ loading ? "..." : departments.length }}</strong>
+        </div>
+        <div class="metric-row">
+          <span class="muted">Tracked tasks</span>
+          <strong>{{ loading ? "..." : tasks.length }}</strong>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="section-head">
+          <div class="section-copy">
+            <h2 class="section-title">Suggested Next Steps</h2>
+            <p class="section-caption">Good additions once the base workflow is stable.</p>
+          </div>
+        </div>
+
+        <ul class="info-list">
+          <li>Add validation and better error handling for every form.</li>
+          <li>Introduce pagination and filters for larger user and task datasets.</li>
+          <li>Layer in audit logs and simple analytics for internal reporting.</li>
+        </ul>
+      </article>
     </section>
   </div>
 </template>

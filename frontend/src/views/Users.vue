@@ -87,36 +87,51 @@ onMounted(loadData);
 <template>
   <div class="page">
     <section class="card">
-      <h2 class="section-title">User Management</h2>
+      <div class="section-head">
+        <div class="section-copy">
+          <h2 class="section-title">User Management</h2>
+          <p class="section-caption">
+            Create employee accounts, assign roles, and keep department placement clear.
+          </p>
+        </div>
+      </div>
+
       <form class="form-grid" @submit.prevent="submit">
-        <label>
-          <span>Name</span>
+        <label class="form-field">
+          <span class="field-label">Name</span>
           <input v-model="form.name" class="input" required />
         </label>
-        <label>
-          <span>Email</span>
+        <label class="form-field">
+          <span class="field-label">Email</span>
           <input v-model="form.email" class="input" type="email" required />
         </label>
-        <label>
-          <span>Password</span>
+        <label class="form-field">
+          <span class="field-label">Password</span>
           <input
             v-model="form.password"
             class="input"
             type="password"
             :required="!editingId"
-            placeholder="Only fill to set or change password"
+            :placeholder="editingId ? 'Enter a new password' : 'Enter password'"
           />
+          <p class="field-hint">
+            {{
+              editingId
+                ? "Leave this blank to keep the current password unchanged."
+                : "Set an initial password for the new user account."
+            }}
+          </p>
         </label>
-        <label>
-          <span>Role</span>
+        <label class="form-field">
+          <span class="field-label">Role</span>
           <select v-model="form.role" class="select">
             <option value="admin">Admin</option>
             <option value="manager">Manager</option>
             <option value="employee">Employee</option>
           </select>
         </label>
-        <label>
-          <span>Department</span>
+        <label class="form-field">
+          <span class="field-label">Department</span>
           <select v-model="form.departmentId" class="select">
             <option value="">Unassigned</option>
             <option
@@ -129,21 +144,29 @@ onMounted(loadData);
           </select>
         </label>
 
-        <div class="form-actions">
+        <div class="form-actions equal-actions">
           <button class="button" type="submit">
             {{ editingId ? "Update User" : "Create User" }}
           </button>
-          <button class="button secondary" type="button" @click="resetForm">
+          <button class="button ghost" type="button" @click="resetForm">
             Clear
           </button>
         </div>
 
-        <p v-if="errorMessage" class="muted">{{ errorMessage }}</p>
+        <p v-if="errorMessage" class="section-caption">{{ errorMessage }}</p>
       </form>
     </section>
 
     <section class="card">
-      <h2 class="section-title">Users</h2>
+      <div class="section-head">
+        <div class="section-copy">
+          <h2 class="section-title">Users</h2>
+          <p class="section-caption">
+            A clean view of team members, role assignments, and current department ownership.
+          </p>
+        </div>
+      </div>
+
       <div class="table-wrapper">
         <table>
           <thead>
@@ -157,14 +180,14 @@ onMounted(loadData);
           </thead>
           <tbody>
             <tr v-for="user in users" :key="user.id">
-              <td>{{ user.name }}</td>
-              <td>{{ user.email }}</td>
-              <td><span class="tag">{{ user.role }}</span></td>
-              <td>{{ user.department_name || "Unassigned" }}</td>
-              <td>
+              <td data-label="Name">{{ user.name }}</td>
+              <td data-label="Email">{{ user.email }}</td>
+              <td data-label="Role"><span class="tag">{{ user.role }}</span></td>
+              <td data-label="Department">{{ user.department_name || "Unassigned" }}</td>
+              <td data-label="Actions">
                 <div class="row-actions">
-                  <button class="button secondary" @click="startEdit(user)">Edit</button>
-                  <button class="button danger" @click="remove(user.id)">Delete</button>
+                  <button class="button secondary small" @click="startEdit(user)">Edit</button>
+                  <button class="button danger small" @click="remove(user.id)">Delete</button>
                 </div>
               </td>
             </tr>

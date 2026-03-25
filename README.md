@@ -1,6 +1,8 @@
 # Mini ERP System
 
-Production-style starter skeleton for an internal company ERP web application using:
+A clean, production-style internal ERP starter built with a modular Node.js backend and a modern Vue frontend. The current version includes authentication, RBAC, PostgreSQL schema setup, and a polished responsive admin UI.
+
+## Tech Stack
 
 - Frontend: Vue 3 + Vite + Vue Router + Pinia
 - Backend: Node.js + Express
@@ -11,7 +13,7 @@ Production-style starter skeleton for an internal company ERP web application us
 ## Project Structure
 
 ```text
-Playground/
+MiniERPSystem/
 |-- backend/
 |   |-- config/
 |   |-- controllers/
@@ -39,6 +41,13 @@ Playground/
 `-- README.md
 ```
 
+## Current UI Highlights
+
+- Responsive sidebar navigation with grouped sections, active states, icons, and a refined account panel
+- Consistent form grids, button sizing, and spacing across Users, Departments, and Tasks
+- Cleaner responsive tables with improved readability on desktop and stacked layouts on mobile
+- Polished dropdown styling, helper text treatment, and smoother interaction states
+
 ## Backend Overview
 
 - `backend/app.js`: Express app setup, middleware, and route mounting
@@ -56,6 +65,8 @@ Playground/
 - `frontend/src/api/*`: axios wrappers for backend endpoints
 - `frontend/src/views/*`: starter screens for login, dashboard, users, departments, and tasks
 - `frontend/src/components/AppLayout.vue`: shared shell and navigation
+- `frontend/src/components/NavBar.vue`: responsive sidebar with role-aware navigation
+- `frontend/src/assets/base.css`: shared design system for layout, forms, buttons, tables, and interactions
 
 ## Database Schema
 
@@ -115,7 +126,7 @@ cd backend
 npm install
 copy .env.example .env
 npm run seed:admin
-node server.js
+npm run dev
 ```
 
 ### Frontend
@@ -148,6 +159,11 @@ This creates or resets:
 
 - Email: `admin@company.com`
 - Password: `password123`
+
+## Local URLs
+
+- Frontend: `http://localhost:5173` or the next available Vite port
+- Backend health check: `http://localhost:5000/api/health`
 
 ## Suggested Next Enhancements
 

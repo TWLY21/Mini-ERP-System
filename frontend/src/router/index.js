@@ -12,31 +12,47 @@ const routes = [
     path: "/login",
     name: "login",
     component: LoginView,
-    meta: { public: true },
+    meta: { public: true, title: "Sign in" },
   },
   {
     path: "/",
     name: "dashboard",
     component: DashboardView,
-    meta: { roles: ["admin", "manager", "employee"] },
+    meta: {
+      roles: ["admin", "manager", "employee"],
+      title: "Dashboard",
+      description: "Review your current activity, team structure, and task progress at a glance.",
+    },
   },
   {
     path: "/users",
     name: "users",
     component: UsersView,
-    meta: { roles: ["admin"] },
+    meta: {
+      roles: ["admin"],
+      title: "Users",
+      description: "Create accounts, assign roles, and keep employee access organized.",
+    },
   },
   {
     path: "/departments",
     name: "departments",
     component: DepartmentsView,
-    meta: { roles: ["admin", "manager"] },
+    meta: {
+      roles: ["admin", "manager"],
+      title: "Departments",
+      description: "Manage company departments and keep your team structure consistent.",
+    },
   },
   {
     path: "/tasks",
     name: "tasks",
     component: TasksView,
-    meta: { roles: ["admin", "manager", "employee"] },
+    meta: {
+      roles: ["admin", "manager", "employee"],
+      title: "Tasks",
+      description: "Assign work, review delivery status, and keep daily execution moving.",
+    },
   },
 ];
 
